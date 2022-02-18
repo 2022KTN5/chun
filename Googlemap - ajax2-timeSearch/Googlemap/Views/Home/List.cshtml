@@ -1,0 +1,210 @@
+﻿@model IEnumerable<Googlemap.Models.theMap>
+
+@{
+    ViewBag.Title = "List";
+}
+<style>
+    .flex {
+    display:flex;
+    flex-direction:row;
+    }
+    #map {
+        height: 400px;
+        width: 400px;
+    }
+</style>
+
+<h2>List</h2>
+<div class="flex">
+    @*<form action="~/Home/List" method="post">
+            <div>
+                <input name="dt" id="date" type="date">
+                <input type="submit" />
+            </div>
+        </form>*@
+    <div class="search">
+        <div>
+            @(Html.DropDownList("SelectListItem4",ViewBag.SelectListItem as SelectList,"請選擇"))
+        </div>
+        @using (Html.BeginForm())
+        {
+            @:日期搜尋：<input type="date" name="txtKeyword" />
+            <input type="submit" name="查詢" />
+        }
+        <div>@ViewBag.a</div>
+
+        @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+        <table class="theActionLinks">
+            @*<tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tele)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.time)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lng)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dateFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dateEnd)
+                </th>
+                <th></th>
+            </tr>*@
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tele)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.time)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.lat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.lng)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dateFrom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dateEnd)
+                    </td>*@
+                    <td>
+                        @Html.ActionLink((item.tele), "Edit", new { id = item.Id }) |
+                        @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div id="map" class="map flex-2"></div>
+    <div class="btns">
+        @*右側擺據點的列表*@
+        <h5>固定捐血點</h5>
+        <button id="Wujia">五甲捐血室</button><br />
+        <button id="Zuoying">左營捐血室</button><br />
+        <button id="Qianjin">前金捐血室</button>
+    </div>
+
+    
+</div>
+
+<div class="row">
+    @*AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10*@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        let map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 22.628026, lng: 120.293009 },
+                zoom: 12
+            });
+
+            $.get("@Url.Action("GetAllLocation","Home")", function (data, status) {
+                var marker = [];
+                const contentString = [];
+                const infowindow = [];
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data[i].lng);
+                    marker[i] = new google.maps.Marker({
+                        position: { lat: data[i].lat, lng: data[i].lng },
+                        map: map
+                    });
+                    contentString[i] =
+                        '<div id="content">' +
+                        '<div id="siteNotice">' +
+                    "</div>" +
+                    '<h1 id="firstHeading" class="firstHeading">' + data[i].tele + '</h1>' +
+                    '<div id="bodyContent">' +
+                    "<p><b>地址：</b>" + data[i].address +
+                    "<p><b>作業時間：</b>" + data[i].time;
+                    infowindow[i] = new google.maps.InfoWindow({
+                        content: contentString[i]
+                    });
+                    var mdl = marker[i];
+                    google.maps.event.addListener(marker[i], 'mouseover', (function (mdl, i) {
+                        return function () {
+                            infowindow[i].open(map, marker[i]);
+                        }
+                    })(marker[i], i));
+                    google.maps.event.addListener(marker[i], 'mouseout', (function (mdl, i) {
+                        return function () {
+                            infowindow[i].close();
+                        }
+                    })(marker[i], i));
+                }
+            })
+        }
+        var IDmapScript;
+
+        var WujiaMap;
+        var ZuoyingMap;
+        var QianjinMap;
+
+        function WujiaFun() {
+            WujiaMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 22.596, lng: 120.331 },
+                zoom: 16
+            });
+            var WujiaMarker = new google.maps.Marker({
+                position: { lat: 22.596, lng: 120.331 },
+                map: WujiaMap
+            });
+        }
+        $("#Wujia").click(function () {
+            WujiaFun();
+            IDmapScript = document.getElementById("mapScript");
+            IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
+        });
+
+        function ZuoyingFun() {
+            ZuoyingMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 22.67987, lng: 120.30847  },
+                zoom: 16
+            });
+            var ZuoyingMarker = new google.maps.Marker({
+                position: { lat: 22.67987, lng: 120.30847 },
+                map: ZuoyingMap
+            });
+        }
+        $("#Zuoying").click(function () {
+            ZuoyingFun();
+            IDmapScript = document.getElementById("mapScript");
+            IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=ZuoyingMap');
+        });
+
+        @*選單*@
+        $("#SelectListItem4").change(function () {
+            var a = $("#SelectListItem4 Option:Selected").val();
+            console.log(a);
+            if (a = 1) {
+                WujiaFun();
+                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
+            }
+        })
+    </script>
+    <script id="mapScript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=initMap">
+
+    </script>
+
+
+</div>

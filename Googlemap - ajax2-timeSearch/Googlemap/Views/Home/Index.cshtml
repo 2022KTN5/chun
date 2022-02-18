@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    #map {
+        height: 400px;
+        width: 400px;
+    }
+</style>
+
+@*左側一個簡易地區篩選功能、日期篩選功能*@
+<div>
+    @(Html.DropDownList("SelectListItem4",ViewBag.SelectListItem as SelectList,"請選擇"))
+</div>
+@*@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group form-group-sm">
+            <div class="col-md-8">
+                @Html.TextBox("start", null, new { @class = "form-control datepicker" })
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="col-md-8">
+                @Html.TextBox("end", null, new { @class = "form-control datepicker" })
+            </div>
+        </div>
+        <div class="form-group-sm">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" /> <span> </span>
+            </div>
+        </div>
+    </div>
+}*@
+
+<form action="~/Home/Index" method="post">
+    <div>
+        <input name="dt" id="date" type="date">
+        <input type="submit" />
+    </div>
+</form>
+<div>@ViewBag.a</div>
+
+<div>
+    @*右側擺據點的列表*@
+    <h5>固定捐血點</h5>
+    <button id="Wujia" onclick="WujiaFun();">五甲捐血室</button>
+    <button id="Zuoying">左營捐血室</button>
+    <button id="Qianjin">前金捐血室</button>
+</div>
+
+
+<div id="map"></div>
+
+<div class="row">
+    @*AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10*@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        let map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                //center: { lat: 22.628026, lng: 120.293009 },
+                center: { lat: @ViewBag.lat, lng: @ViewBag.lng },
+                zoom: 12
+            });
+
+            $.get("@Url.Action("GetAllLocation","Home")", function (data, status) {
+                var marker = [];
+                const contentString = [];
+                const infowindow = [];
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data[i].lng);
+                    marker[i] = new google.maps.Marker({
+                        position: { lat: data[i].lat, lng: data[i].lng },
+                        map: map
+                    });
+                    contentString[i] =
+                        '<div id="content">' +
+                        '<div id="siteNotice">' +
+                    "</div>" +
+                    '<h1 id="firstHeading" class="firstHeading">' + data[i].tele + '</h1>' +
+                    '<div id="bodyContent">' +
+                    "<p><b>地址：</b>" + data[i].address +
+                    "<p><b>作業時間：</b>" + data[i].time;
+                    infowindow[i] = new google.maps.InfoWindow({
+                        content: contentString[i]
+                    });
+                    var mdl = marker[i];
+                    google.maps.event.addListener(marker[i], 'mouseover', (function (mdl, i) {
+                        return function () {
+                            infowindow[i].open(map, marker[i]);
+                        }
+                    })(marker[i], i));
+                    google.maps.event.addListener(marker[i], 'mouseout', (function (mdl, i) {
+                        return function () {
+                            infowindow[i].close();
+                        }
+                    })(marker[i], i));
+                }
+            })
+        }
+        var IDmapScript;
+
+        var WujiaMap;
+        var ZuoyingMap;
+        var QianjinMap;
+
+        function WujiaFun() {
+            WujiaMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 25.033964, lng: 121.564468 },
+                zoom: 16
+            });
+            var WujiaMarker = new google.maps.Marker({
+                position: { lat: 25.033964, lng: 121.564468 },
+                map: WujiaMap
+            });
+            var req = new XMLHttpRequest();
+            req.open("get", "https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=r101");
+            req.onload = function () {
+                alert(this.responseText);
+            };
+            req.send();
+        }
+        //$("#Wujia").click(function () {
+        //    WujiaFun();
+        //    IDmapScript = document.getElementById("mapScript");
+        //    IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
+        //});
+
+        function ZuoyingFun() {
+            ZuoyingMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 22.67987, lng: 120.30847  },
+                zoom: 16
+            });
+            var ZuoyingMarker = new google.maps.Marker({
+                position: { lat: 22.67987, lng: 120.30847 },
+                map: ZuoyingMap
+            });
+        }
+        $("#Zuoying").click(function () {
+            ZuoyingFun();
+            IDmapScript = document.getElementById("mapScript");
+            IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=ZuoyingMap');
+        });
+
+        @*選單*@
+        $("#SelectListItem4").change(function () {
+            var a = $("#SelectListItem4 Option:Selected").val();
+            console.log(a);
+            if (a = 1) {
+                WujiaFun();
+                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
+            }
+        })
+    </script>
+    <script id="mapScript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=initMap">
+
+    </script>
+
+
+</div>

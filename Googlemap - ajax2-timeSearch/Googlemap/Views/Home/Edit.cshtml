@@ -1,0 +1,200 @@
+﻿@model Googlemap.Models.theMap
+
+@{
+    ViewBag.Title = "Edit";
+   
+}
+<style>
+    #map {
+        height: 400px;
+        width: 400px;
+    }
+</style>
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>theMap</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.tele, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tele, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.tele, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.time, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.time, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.time, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.lat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.lng, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.lng, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dateFrom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.dateFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dateEnd, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.dateEnd, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+    @ViewBag.lat
+    @ViewBag.lng
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<div id="map"></div>
+<div class="row">
+    @*AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10*@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        let map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: @Model.lat, lng: @Model.lng },
+                zoom: 12
+            });
+
+            $.get("@Url.Action("GetAllLocation","Home")", function (data, status) {
+                var marker = [];
+                const contentString = [];
+                const infowindow = [];
+                for (var i = 0; i < data.length; i++) {
+                    console.log(Id.lng);
+                    marker[i] = new google.maps.Marker({
+                        position: { lat: @Model.lat , lng: @Model.lng },
+                        map: map
+                    });
+                    contentString[i] =
+                        '<div id="content">' +
+                        '<div id="siteNotice">' +
+                    "</div>" +
+                    '<h1 id="firstHeading" class="firstHeading">' + data[i].tele + '</h1>' +
+                    '<div id="bodyContent">' +
+                    "<p><b>地址：</b>" + data[i].address +
+                    "<p><b>作業時間：</b>" + data[i].time;
+                    infowindow[i] = new google.maps.InfoWindow({
+                        content: contentString[i]
+                    });
+                    var mdl = marker[i];
+                    google.maps.event.addListener(marker[i], 'mouseover', (function (mdl, i) {
+                        return function () {
+                            infowindow[i].open(map, marker[i]);
+                        }
+                    })(marker[i], i));
+                    google.maps.event.addListener(marker[i], 'mouseout', (function (mdl, i) {
+                        return function () {
+                            infowindow[i].close();
+                        }
+                    })(marker[i], i));
+                }
+            })
+        }
+        var IDmapScript;
+
+        var WujiaMap;
+        var ZuoyingMap;
+        var QianjinMap;
+
+        //function WujiaFun() {
+        //    WujiaMap = new google.maps.Map(document.getElementById('map'), {
+        //        center: { lat: 22.596, lng: 120.331 },
+        //        zoom: 16
+        //    });
+        //    var WujiaMarker = new google.maps.Marker({
+        //        position: { lat: 22.596, lng: 120.331 },
+        //        map: WujiaMap
+        //    });
+        //}
+        //$("#Wujia").click(function () {
+        //    WujiaFun();
+        //    IDmapScript = document.getElementById("mapScript");
+        //    IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
+        //});
+
+        //function ZuoyingFun() {
+        //    ZuoyingMap = new google.maps.Map(document.getElementById('map'), {
+        //        center: { lat: 22.67987, lng: 120.30847  },
+        //        zoom: 16
+        //    });
+        //    var ZuoyingMarker = new google.maps.Marker({
+        //        position: { lat: 22.67987, lng: 120.30847 },
+        //        map: ZuoyingMap
+        //    });
+        //}
+        //$("#Zuoying").click(function () {
+        //    ZuoyingFun();
+        //    IDmapScript = document.getElementById("mapScript");
+        //    IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=ZuoyingMap');
+        //});
+
+        @*選單*@
+        //$("#SelectListItem4").change(function () {
+        //    var a = $("#SelectListItem4 Option:Selected").val();
+        //    console.log(a);
+        //    if (a = 1) {
+        //        WujiaFun();
+        //        IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
+        //    }
+        //})
+    </script>
+    <script id="mapScript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=initMap">
+
+    </script>
+
+
+</div>
