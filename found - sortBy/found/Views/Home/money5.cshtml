@@ -1,0 +1,131 @@
+﻿@model IEnumerable<found.Models.Solution>
+
+@{
+    ViewBag.Title = "money5";
+}
+
+<h2>money5</h2>
+
+@{
+    ViewBag.Title = "money5";
+}
+
+<h2>money5</h2>
+<div>
+    <a href="https://localhost:44370/Home/money5"><img src="~/image/money5"></a>
+</div>
+
+<div>
+    <a href="https://localhost:44370/Home/money5">【墊墊五錢】好運杯墊｜超「實用」的好運擺飾</a>
+    <p>By<a href="https://www.zeczec.com/users/tbd">暫定 TBD</a></p>
+    <p>
+        五錢好
+        運杯墊，除了擺設，還兼顧實用。「銅錢」是國泰民安的財富象徵，也有豐衣足食的吉祥寓意；而「五行」的和諧，能使萬...
+    </p>
+</div>
+<div>
+    <canvas id="myc" width="60px" height="40px"></canvas>
+    <p>預購金額</p>
+    <p>NT$57,701</p>
+    <p>目標NT$88,888</p>
+</div>
+@Html.ActionLink("聯絡提案人", "mailthefounder")
+@Html.ActionLink("臉書", "")
+@Html.ActionLink("推特", "")
+<hr />
+<div>
+    <span onclick="goDetail();">專案內容</span>
+    <span onclick="goComment();">留言</span>
+    <span onclick="goQA();">常見問答</span>
+    @*@Html.ActionLink("常見問答", "QA")*@
+    @Html.ActionLink("贊助專案", "supportMoney5List")
+</div>
+<div id="content"></div>
+<script>
+    const myc = document.querySelector('#myc');
+    const ctx = myc.getContext('2d');
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(30, 20, 10, 0, Math.PI, false);
+    ctx.stroke();
+
+    function goDetail() {
+        var req = new XMLHttpRequest();
+        req.open("get", "https://localhost:44370/Home/Detail");
+        req.onload = function () {
+            var content = document.getElementById("content");
+            content.innerHTML = this.responseText;
+        };
+        req.send();
+    }
+    function goComment() {
+        var req = new XMLHttpRequest();
+        req.open("get", "https://localhost:44370/Home/");
+        req.onload = function () {
+            var content = document.getElementById("content");
+            content.innerHTML = this.responseText;
+        };
+        req.send();
+    }
+    function goQA() {
+        var req = new XMLHttpRequest();
+        req.open("get", "https://localhost:44370/Home/QA");
+        req.onload = function () {
+            var content = document.getElementById("content");
+            content.innerHTML = this.responseText;
+        };
+        req.send();
+    }
+
+</script>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.intro)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.sId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.intro)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

@@ -1,0 +1,112 @@
+﻿@model found.Models.Solution
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Solution</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.sId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.sId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.sId, "", new { @class = "text-danger" })
+            </div>
+
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.sName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.sName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.sName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.sMoney, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.sMoney, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.sMoney, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.intro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.intro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.intro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<form action="~/Home/caseOne" method="post">
+    <div style="border:1px solid pink;width:500px">
+        <input type="radio" name="payBy" value="visa" checked />信用卡付款<br />
+        <input type="radio" name="payBy" value="ATM" />ATM機器轉帳或銀行臨櫃繳款<br />
+        <p>您了解您的贊助是支持創意專案的一種方式，也了解創意實踐過程中充滿變數，專案不一定能確保回饋。</p>
+        <label>加碼贊助(選擇)</label>
+        <span>$<input type="number" name="" min="0" value="$0" />元</span><br />
+        @*<select>
+                <option value="TW">台灣本島</option>
+                <option value="TWi">台灣外島</option>
+            </select>*@
+        <div>
+            <div id="twzipcode"></div>
+            <p><input type="text" name="sendTo"/>地址</p>
+            <hr />
+            <p>超商取貨(選填)</p>
+            <button onclick="getCities();">711</button>
+            <p><input type="text" name="forwho"/>收件人</p>
+            <p><input type="text" name="tel"/>連絡電話</p>
+            <p><input type="text" />備註</p>
+        </div>
+        <input type="submit" />立刻贊助$NT1,688
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
+
+
+<script>
+    $("#twzipcode").twzipcode();
+
+    var clickpay=0;
+    function pay1688() {
+        clickpay += 1;
+        console.log(clickpay);
+        @*//@ViewBag.tot += clickpay * 1688;*@
+    }
+</script>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

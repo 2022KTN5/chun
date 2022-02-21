@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MyDatabaseModelStoreContainer" CdmEntityContainer="MyDatabaseEntities">
+    <EntitySetMapping Name="Tables">
+      <EntityTypeMapping TypeName="MyDatabaseModel.Table">
+        <MappingFragment StoreEntitySet="Table">
+          <ScalarProperty Name="fId" ColumnName="fId" />
+          <ScalarProperty Name="fName" ColumnName="fName" />
+          <ScalarProperty Name="cId" ColumnName="cId" />
+          <ScalarProperty Name="fText" ColumnName="fText" />
+          <ScalarProperty Name="targetMoney" ColumnName="targetMoney" />
+          <ScalarProperty Name="accMoney" ColumnName="accMoney" />
+          <ScalarProperty Name="startTime" ColumnName="startTime" />
+          <ScalarProperty Name="endTime" ColumnName="endTime" />
+          <ScalarProperty Name="trueName" ColumnName="trueName" />
+          <ScalarProperty Name="fPhone" ColumnName="fPhone" />
+          <ScalarProperty Name="fEmail" ColumnName="fEmail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Solutions">
+      <EntityTypeMapping TypeName="MyDatabaseModel.Solution">
+        <MappingFragment StoreEntitySet="Solution">
+          <ScalarProperty Name="intro" ColumnName="intro" />
+          <ScalarProperty Name="sMoney" ColumnName="sMoney" />
+          <ScalarProperty Name="fId" ColumnName="fId" />
+          <ScalarProperty Name="sName" ColumnName="sName" />
+          <ScalarProperty Name="sId" ColumnName="sId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MyDatabaseModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="address_detail" ColumnName="address_detail" />
+          <ScalarProperty Name="address_cou" ColumnName="address_cou" />
+          <ScalarProperty Name="address_city" ColumnName="address_city" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="account" ColumnName="account" />
+          <ScalarProperty Name="uId" ColumnName="uId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

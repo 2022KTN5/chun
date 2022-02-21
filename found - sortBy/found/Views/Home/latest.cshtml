@@ -1,0 +1,47 @@
+﻿@model IEnumerable<found.Models.Table>
+@{
+    ViewBag.Title = "latest";
+}
+
+<h2>latest</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.targetMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.accMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.endTime)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.targetMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.accMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.startTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.endTime)
+            </td>
+        </tr>
+    }
+</table>
+

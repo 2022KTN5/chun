@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Solution">
+          <Key>
+            <PropertyRef Name="sId" />
+          </Key>
+          <Property Name="sId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sName" Type="nvarchar" MaxLength="50" />
+          <Property Name="fId" Type="int" />
+          <Property Name="sMoney" Type="money" />
+          <Property Name="intro" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fName" Type="nvarchar" MaxLength="50" />
+          <Property Name="cId" Type="int" />
+          <Property Name="fText" Type="nvarchar(max)" />
+          <Property Name="targetMoney" Type="money" />
+          <Property Name="accMoney" Type="money" />
+          <Property Name="startTime" Type="datetime" />
+          <Property Name="endTime" Type="datetime" />
+          <Property Name="trueName" Type="nvarchar" MaxLength="50" />
+          <Property Name="fPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="fEmail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="uId" />
+          </Key>
+          <Property Name="uId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="account" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="role" Type="int" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="address_city" Type="nvarchar" MaxLength="50" />
+          <Property Name="address_cou" Type="nvarchar" MaxLength="50" />
+          <Property Name="address_detail" Type="nvarchar" MaxLength="50" />
+          <Property Name="photo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="MyDatabaseModelStoreContainer">
+          <EntitySet Name="Solution" EntityType="Self.Solution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cId" Type="Int32" />
+          <Property Name="fText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="targetMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="accMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="startTime" Type="DateTime" Precision="3" />
+          <Property Name="endTime" Type="DateTime" Precision="3" />
+          <Property Name="trueName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="MyDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tables" EntityType="Self.Table" />
+          <EntitySet Name="Solutions" EntityType="MyDatabaseModel.Solution" />
+          <EntitySet Name="Users" EntityType="MyDatabaseModel.User" />
+        </EntityContainer>
+        <EntityType Name="Solution">
+          <Key>
+            <PropertyRef Name="sId" />
+          </Key>
+          <Property Name="sId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fId" Type="Int32" />
+          <Property Name="sMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="uId" />
+          </Key>
+          <Property Name="uId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="role" Type="Int32" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address_city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address_cou" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address_detail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyDatabaseModelStoreContainer" CdmEntityContainer="MyDatabaseEntities">
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="MyDatabaseModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="fId" ColumnName="fId" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="cId" ColumnName="cId" />
+                <ScalarProperty Name="fText" ColumnName="fText" />
+                <ScalarProperty Name="targetMoney" ColumnName="targetMoney" />
+                <ScalarProperty Name="accMoney" ColumnName="accMoney" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="trueName" ColumnName="trueName" />
+                <ScalarProperty Name="fPhone" ColumnName="fPhone" />
+                <ScalarProperty Name="fEmail" ColumnName="fEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solutions">
+            <EntityTypeMapping TypeName="MyDatabaseModel.Solution">
+              <MappingFragment StoreEntitySet="Solution">
+                <ScalarProperty Name="intro" ColumnName="intro" />
+                <ScalarProperty Name="sMoney" ColumnName="sMoney" />
+                <ScalarProperty Name="fId" ColumnName="fId" />
+                <ScalarProperty Name="sName" ColumnName="sName" />
+                <ScalarProperty Name="sId" ColumnName="sId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MyDatabaseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="address_detail" ColumnName="address_detail" />
+                <ScalarProperty Name="address_cou" ColumnName="address_cou" />
+                <ScalarProperty Name="address_city" ColumnName="address_city" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="uId" ColumnName="uId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

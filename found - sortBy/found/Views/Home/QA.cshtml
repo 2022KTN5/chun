@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "QA";
+}
+
+<h2>QA</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<div id="top">
+    【墊墊五錢】好運杯墊｜超「實用」的好運擺飾
+    提案人 暫定 TBD | 預購式專案
+    預購金額$ @ViewBag.tot /@ViewBag.total 目標 NT$88,888
+</div>
+
+<div>
+    <span>專案內容</span>
+    <span>留言</span>
+    <span>常見問答</span>
+    @Html.ActionLink("常見問答", "QA")
+    @Html.ActionLink("贊助專案", "supportMoney5")
+</div>
+<div>
+    <p>Q1. 確認是否贊助成功？</p>
+    <p>最後更新於 2022 / 01 / 18 11 : 04</p>
+</div>
+<div>
+    <p>
+        以下提供兩種方式確認
+        ➤ 方法一
+        ❶ 至您的電子信箱收信（使用註冊嘖嘖使用的電子信箱）
+        ❷ 確認是否收到一封主旨為「嘖嘖｜支持成功確認信件」如果有收到此封信件，即表示贊助成功
+
+        ➤ 方法二
+        ❶ 使用購買商品時的帳號登入嘖嘖
+        ❷ 點擊頁面右上角的個人圖像，選擇「贊助記錄」
+        或是直接到此網址→ https://www.zeczec.com/account ，進入 「✔️成功贊助記錄」頁面
+        ❸ 找尋是否有出現您購買的項目，如果有找到，即表示贊助成功！
+    </p>
+</div>
+<div>
+    <p>還有其他問題嗎？@Html.ActionLink("直接問提案人！", "mailthefounder")</p>
+</div>

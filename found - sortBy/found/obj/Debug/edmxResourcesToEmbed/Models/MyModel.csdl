@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Table">
+    <Key>
+      <PropertyRef Name="fId" />
+    </Key>
+    <Property Name="fId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cId" Type="Int32" />
+    <Property Name="fText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="targetMoney" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="accMoney" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="startTime" Type="DateTime" Precision="3" />
+    <Property Name="endTime" Type="DateTime" Precision="3" />
+    <Property Name="trueName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="MyDatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tables" EntityType="Self.Table" />
+    <EntitySet Name="Solutions" EntityType="MyDatabaseModel.Solution" />
+    <EntitySet Name="Users" EntityType="MyDatabaseModel.User" />
+  </EntityContainer>
+  <EntityType Name="Solution">
+    <Key>
+      <PropertyRef Name="sId" />
+    </Key>
+    <Property Name="sId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fId" Type="Int32" />
+    <Property Name="sMoney" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="uId" />
+    </Key>
+    <Property Name="uId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="role" Type="Int32" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="address_city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="address_cou" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="address_detail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

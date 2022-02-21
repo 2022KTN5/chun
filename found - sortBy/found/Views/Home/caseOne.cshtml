@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "caseOne";
+}
+
+<h2>caseOne</h2><script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<div id="top">
+    【墊墊五錢】好運杯墊｜超「實用」的好運擺飾
+    提案人 暫定 TBD | 預購式專案
+    預購金額$ @ViewBag.tot /@ViewBag.total 目標 NT$88,888
+</div>
+
+
+
+<div id="one" style="border:1px solid black;width:500px">
+    <img src="" />
+    <p>
+        NT$1,688
+        <br />
+        已被贊助 18 次
+        <br />
+        【早點有錢】<br />
+        內含：<br />
+        ㊎ 金杯墊 x1<br />
+        ㊍ 木杯墊 x1<br />
+        ㊌ 水杯墊 x1<br />
+        ㊋ 火杯墊 x1<br />
+        ㊏ 土杯墊 x1<br />
+        ㊖ 陳列座 x1<br />
+        <br />
+        未來售價 NT$2,288，現賺 NT$600<br />
+        -----------------------------------<br />
+        ○ 杯墊尺寸：外框直徑 11 x 11 cm<br />
+        ○ 陳列座尺寸：12 x 12 x 12 cm<br />
+        ○ 杯墊重量(一個)：120g<br />
+        ○ 陳列座重量(一組)：200g<br />
+        -----------------------------------<br />
+        【惦惦提醒】<br />
+        ㊖ 商品整組福氣出售，不單獨販售。<br />
+        ㊖ 台灣本島免運。<br />
+        ㊖ 台灣外島須加運費50元。<br />
+    </p>
+</div>
+<form action="~/Home/caseOne" method="post">
+    <div style="border:1px solid pink;width:500px">
+        <input type="radio" name="payBy" value="visa" checked />信用卡付款<br />
+        <input type="radio" name="payBy" value="ATM" />ATM機器轉帳或銀行臨櫃繳款<br />
+        <p>您了解您的贊助是支持創意專案的一種方式，也了解創意實踐過程中充滿變數，專案不一定能確保回饋。</p>
+        <label>加碼贊助(選擇)</label>
+        <span>$<input type="number" name="" min="0" value="$0" />元</span><br />
+        @*<select>
+            <option value="TW">台灣本島</option>
+            <option value="TWi">台灣外島</option>
+        </select>*@
+        <div>
+            <div id="twzipcode"></div>
+            <p><input type="text" />地址</p>
+            <hr />
+            <p>超商取貨(選填)</p>
+            <button onclick="getCities();">711</button>
+            <p><input type="text" />收件人</p>
+            <p><input type="text" />連絡電話</p>
+            <p><input type="text" />備註</p>
+        </div>
+        <input type="submit"/>立刻贊助$NT1,688
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
+
+
+<script>
+    $("#twzipcode").twzipcode();
+
+    var clickpay=0;
+    function pay1688() {
+        clickpay += 1;
+        console.log(clickpay);
+        @*//@ViewBag.tot += clickpay * 1688;*@
+    }
+</script>

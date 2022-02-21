@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Solution">
+    <Key>
+      <PropertyRef Name="sId" />
+    </Key>
+    <Property Name="sId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sName" Type="nvarchar" MaxLength="50" />
+    <Property Name="fId" Type="int" />
+    <Property Name="sMoney" Type="money" />
+    <Property Name="intro" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Table">
+    <Key>
+      <PropertyRef Name="fId" />
+    </Key>
+    <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fName" Type="nvarchar" MaxLength="50" />
+    <Property Name="cId" Type="int" />
+    <Property Name="fText" Type="nvarchar(max)" />
+    <Property Name="targetMoney" Type="money" />
+    <Property Name="accMoney" Type="money" />
+    <Property Name="startTime" Type="datetime" />
+    <Property Name="endTime" Type="datetime" />
+    <Property Name="trueName" Type="nvarchar" MaxLength="50" />
+    <Property Name="fPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="fEmail" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="uId" />
+    </Key>
+    <Property Name="uId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="account" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="role" Type="int" />
+    <Property Name="phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="address_city" Type="nvarchar" MaxLength="50" />
+    <Property Name="address_cou" Type="nvarchar" MaxLength="50" />
+    <Property Name="address_detail" Type="nvarchar" MaxLength="50" />
+    <Property Name="photo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="MyDatabaseModelStoreContainer">
+    <EntitySet Name="Solution" EntityType="Self.Solution" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

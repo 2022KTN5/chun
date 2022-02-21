@@ -1,0 +1,93 @@
+﻿@model IEnumerable<found.Models.Table>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+@ViewBag.acc
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.targetMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.accMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.endTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.trueName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fEmail)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.targetMoney)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.accMoney)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.endTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.trueName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fEmail)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
