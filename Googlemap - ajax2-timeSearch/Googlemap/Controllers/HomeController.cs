@@ -122,8 +122,8 @@ namespace Googlemap.Controllers
         public ActionResult Edit(int id)
         {
             theMap mapEdit = contextMAP.theMap.FirstOrDefault(p=>p.Id==id);
-            ViewBag.lat = mapEdit.lat;
-            ViewBag.lng = mapEdit.lng;
+            ViewBag.xx = mapEdit.lat;
+            ViewBag.yy = mapEdit.lng;
             if (mapEdit == null)
                 return RedirectToAction("List");
             return View(mapEdit);
@@ -152,7 +152,26 @@ namespace Googlemap.Controllers
         public JsonResult GetAllLocation()
         {
             var data = contextMAP.theMap.ToList();
-            return Json(data,JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetAllLocation(DateTime? txtKeyword)
+        {
+            var data = (from p in contextMAP.theMap select p).ToList();
+            if (txtKeyword == null)
+            {
+                data = (from p in contextMAP.theMap select p).ToList();
+                //return View(themap);
+            }
+            else
+            {
+                data = (from p in contextMAP.theMap
+                         where p.dateFrom <= txtKeyword
+                         && p.dateEnd >= txtKeyword
+                         select p).ToList();
+                //return View(themap);
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         //public ActionResult About()
         //{

@@ -1,4 +1,4 @@
-﻿@{
+﻿<!--@{
     ViewBag.Title = "Home Page";
 }
 <style>
@@ -6,12 +6,12 @@
         height: 400px;
         width: 400px;
     }
-</style>
+</style>-->
 
 @*左側一個簡易地區篩選功能、日期篩選功能*@
-<div>
+<!--<div>
     @(Html.DropDownList("SelectListItem4",ViewBag.SelectListItem as SelectList,"請選擇"))
-</div>
+</div>-->
 @*@using (Html.BeginForm())
 {
     <div class="form-horizontal">
@@ -33,7 +33,7 @@
     </div>
 }*@
 
-<form action="~/Home/Index" method="post">
+<!--<form action="~/Home/Index" method="post">
     <div>
         <input name="dt" id="date" type="date">
         <input type="submit" />
@@ -41,9 +41,9 @@
 </form>
 <div>@ViewBag.a</div>
 
-<div>
+<div>-->
     @*右側擺據點的列表*@
-    <h5>固定捐血點</h5>
+    <!--<h5>固定捐血點</h5>
     <button id="Wujia" onclick="WujiaFun();">五甲捐血室</button>
     <button id="Zuoying">左營捐血室</button>
     <button id="Qianjin">前金捐血室</button>
@@ -52,9 +52,9 @@
 
 <div id="map"></div>
 
-<div class="row">
+<div class="row">-->
     @*AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10*@
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <!--<script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script>
         let map;
         function initMap() {
@@ -141,10 +141,10 @@
             ZuoyingFun();
             IDmapScript = document.getElementById("mapScript");
             IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=ZuoyingMap');
-        });
+        });-->
 
         @*選單*@
-        $("#SelectListItem4").change(function () {
+        <!--$("#SelectListItem4").change(function () {
             var a = $("#SelectListItem4 Option:Selected").val();
             console.log(a);
             if (a = 1) {
@@ -158,4 +158,4 @@
     </script>
 
 
-</div>
+</div>-->

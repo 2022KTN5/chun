@@ -5,108 +5,123 @@
    
 }
 <style>
+    .flex {
+        display: flex;
+        flex-direction: row;
+    }
     #map {
-        height: 400px;
-        width: 400px;
+        height: 600px;
+        width: 1000px;
+        margin-right: 20px;
+    }
+    .form-horizontal {
+        height: 600px;
+        background-color: #F7B52C;
+        border-radius: 20px;
+        padding: 20px 20px;
     }
 </style>
 
 <h2>Edit</h2>
+<div class="flex">
+    <div id="map"></div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>theMap</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.tele, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.tele, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tele, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.time, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.time, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.time, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.lat, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.lng, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.lng, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.dateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.dateFrom, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.dateFrom, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.dateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.dateEnd, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.dateEnd, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        <div class="form-horizontal">
+            <h4>詳細資訊</h4>
+            
+                <div class="form-group">
+    @Html.LabelFor(model => model.tele, htmlAttributes: new { @class = "control-label col-md-2" })
+<div class="col-md-10">
+        @Html.EditorFor(model => model.tele, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.tele, "", new { @class = "text-danger" })
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-    @ViewBag.lat
-    @ViewBag.lng
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
 </div>
+            
+                <div class="form-group">
+                    @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-<div id="map"></div>
-<div class="row">
-    @*AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10*@
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.time, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.time, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.time, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.lat, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lng, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lng, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.dateFrom, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.dateFrom, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.dateEnd, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.dateEnd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>*@
+</div>
+    }
+
+    @*<div>
+            @Html.ActionLink("Back to List", "Index")
+            @ViewBag.lat
+            @ViewBag.lng
+        </div>*@
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+    <div class="row">
+        @*AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10*@
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script>
         let map;
         function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
                 center: { lat: @Model.lat, lng: @Model.lng },
-                zoom: 12
+                zoom: 16
             });
 
             $.get("@Url.Action("GetAllLocation","Home")", function (data, status) {
@@ -119,14 +134,14 @@
                         position: { lat: @Model.lat , lng: @Model.lng },
                         map: map
                     });
-                    contentString[i] =
+                    @*contentString[i] =
                         '<div id="content">' +
                         '<div id="siteNotice">' +
                     "</div>" +
-                    '<h1 id="firstHeading" class="firstHeading">' + data[i].tele + '</h1>' +
+                    '<h1 id="firstHeading" class="firstHeading">' + @Model.tele + '</h1>' +
                     '<div id="bodyContent">' +
-                    "<p><b>地址：</b>" + data[i].address +
-                    "<p><b>作業時間：</b>" + data[i].time;
+                    "<p><b>地址：</b>" + @Model.address +
+                    "<p><b>作業時間：</b>" + @Model.time;*@
                     infowindow[i] = new google.maps.InfoWindow({
                         content: contentString[i]
                     });
@@ -191,10 +206,11 @@
         //        IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
         //    }
         //})
-    </script>
-    <script id="mapScript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=initMap">
+        </script>
+        <script id="mapScript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=initMap">
 
-    </script>
+        </script>
 
 
+    </div>
 </div>

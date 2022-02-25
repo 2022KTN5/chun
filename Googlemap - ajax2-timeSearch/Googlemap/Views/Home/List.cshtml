@@ -9,12 +9,31 @@
     flex-direction:row;
     }
     #map {
-        height: 400px;
-        width: 400px;
+        height: 600px;
+        width: 1000px;
+        margin-right:20px;
+    }
+    .search {
+        /*outline: 1px solid red;*/
+        height: 600px;
+        background-color: #F7B52C;
+        border-radius: 20px;
+        padding: 20px 20px;
+    }
+    .btnbtn {
+        background: #905ca2;
+        color: white;
+        border-radius: 10px;
+        
+    }
+    #actionlink {
+        text-align: center;
     }
 </style>
 
-<h2>List</h2>
+<h2>捐血地圖</h2>
+<hr />
+<div id="ajaxContent"></div>
 <div class="flex">
     @*<form action="~/Home/List" method="post">
             <div>
@@ -22,6 +41,8 @@
                 <input type="submit" />
             </div>
         </form>*@
+    <div id="map" class="map flex-2"></div>
+
     <div class="search">
         <div>
             @(Html.DropDownList("SelectListItem4",ViewBag.SelectListItem as SelectList,"請選擇"))
@@ -34,78 +55,79 @@
         <div>@ViewBag.a</div>
 
         @*<p>
-            @Html.ActionLink("Create New", "Create")
-        </p>*@
+                @Html.ActionLink("Create New", "Create")
+            </p>*@
         <table class="theActionLinks">
             @*<tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tele)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.time)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.lat)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.lng)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.dateFrom)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.dateEnd)
-                </th>
-                <th></th>
-            </tr>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tele)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.time)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.lat)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.lng)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dateFrom)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dateEnd)
+                    </th>
+                    <th></th>
+                </tr>*@
 
             @foreach (var item in Model)
             {
                 <tr>
                     @*<td>
-                        @Html.DisplayFor(modelItem => item.address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.tele)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.time)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.lat)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.lng)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dateFrom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dateEnd)
-                    </td>*@
-                    <td>
-                        @Html.ActionLink((item.tele), "Edit", new { id = item.Id }) |
-                        @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                            @Html.DisplayFor(modelItem => item.address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tele)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.lat)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.lng)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dateFrom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dateEnd)
+                        </td>*@
+                    <td><div id="actionlink">
+    @Html.ActionLink((item.tele), "Edit", new { id = item.Id }, new { @class = "btnbtn",onclick= "getData(id);" })
+        @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }), new { onclick = "getData();" }*@
+</div>
                     </td>
                 </tr>
             }
 
         </table>
     </div>
-    <div id="map" class="map flex-2"></div>
-    <div class="btns">
-        @*右側擺據點的列表*@
-        <h5>固定捐血點</h5>
-        <button id="Wujia">五甲捐血室</button><br />
-        <button id="Zuoying">左營捐血室</button><br />
-        <button id="Qianjin">前金捐血室</button>
-    </div>
 
-    
+    @*<div class="btns">
+            右側擺據點的列表
+            <h5>固定捐血點</h5>
+            <button id="Wujia">五甲捐血室</button><br />
+            <button id="Zuoying">左營捐血室</button><br />
+            <button id="Qianjin">前金捐血室</button>
+        </div>*@
+
+
 </div>
 
 <div class="row">
@@ -159,6 +181,11 @@
         var WujiaMap;
         var ZuoyingMap;
         var QianjinMap;
+        var GuangshanMap;
+        var LingyaMap;
+        var MRTFengshanMap;
+        var NanziMap;
+        
 
         function WujiaFun() {
             WujiaMap = new google.maps.Map(document.getElementById('map'), {
@@ -170,11 +197,11 @@
                 map: WujiaMap
             });
         }
-        $("#Wujia").click(function () {
-            WujiaFun();
-            IDmapScript = document.getElementById("mapScript");
-            IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
-        });
+        //$("#Wujia").click(function () {
+        //    WujiaFun();
+        //    IDmapScript = document.getElementById("mapScript");
+        //    IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
+        //});
 
         function ZuoyingFun() {
             ZuoyingMap = new google.maps.Map(document.getElementById('map'), {
@@ -186,21 +213,116 @@
                 map: ZuoyingMap
             });
         }
-        $("#Zuoying").click(function () {
-            ZuoyingFun();
-            IDmapScript = document.getElementById("mapScript");
-            IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=ZuoyingMap');
-        });
+        function QianjinFun() {
+            QianjinMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 22.623164, lng: 120.29814 },
+                zoom: 16
+            });
+            var ZuoyingMarker = new google.maps.Marker({
+                position: { lat: 22.623164, lng: 120.29814 },
+                map: QianjinMap
+            });
+        }
+        function GuangshanFun() {
+            GuangshanMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 22.798632, lng: 120.29318 },
+                zoom: 16
+            });
+            var ZuoyingMarker = new google.maps.Marker({
+                position: { lat: 22.798632, lng: 120.29318},
+                map: GuangshanMap
+            });
+        }
+        function LingyaFun() {
+            LingyaMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 22.6222122, lng: 120.30987 },
+                zoom: 16
+            });
+            var ZuoyingMarker = new google.maps.Marker({
+                position: { lat: 22.6222122, lng: 120.30987 },
+                map: LingyaMap
+            });
+        }
+        function MRTFengshanFun() {
+            MRTFengshanMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 22.6259994, lng: 120.3635 },
+                zoom: 16
+            });
+            var ZuoyingMarker = new google.maps.Marker({
+                position: { lat: 22.6259994, lng: 120.3635  },
+                map: MRTFengshanMap
+            });
+        } 
+        function  NanziFun() {
+            NanziMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 22.7295855, lng: 120.3207 },
+                zoom: 16
+            });
+            var ZuoyingMarker = new google.maps.Marker({
+                position: { lat: 22.7295855, lng: 120.3207  },
+                map: NanziMap
+            });
+        } 
+        //$("#Zuoying").click(function () {
+        //    ZuoyingFun();
+        //    IDmapScript = document.getElementById("mapScript");
+        //    IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=ZuoyingMap');
+        //});
 
         @*選單*@
         $("#SelectListItem4").change(function () {
             var a = $("#SelectListItem4 Option:Selected").val();
             console.log(a);
-            if (a = 1) {
+            if (a == 1) {
                 WujiaFun();
-                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');
+                IDmapScript = document.getElementById("mapScript");
+                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');}
+            if (a == 2) {
+                ZuoyingFun(); IDmapScript = document.getElementById("mapScript");
+                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=ZuoyingMap');
+            }
+            if (a == 3) {
+                QianjinFun(); IDmapScript = document.getElementById("mapScript");
+                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=QianjinMap');
+            } 
+            if (a == 4) {
+               GuangshanFun(); IDmapScript = document.getElementById("mapScript");
+                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=GuangshanMap');
+            }
+            if (a == 5) {
+                LingyaFun(); IDmapScript = document.getElementById("mapScript");
+                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=LingyaMap');
+            }
+            if (a == 6) {
+                MRTFengshanFun(); IDmapScript = document.getElementById("mapScript");
+                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=MRTFengshanMap');
+            }
+            if (a == 7) {
+                NanziFun(); IDmapScript = document.getElementById("mapScript");
+                IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=NanziMap');
             }
         })
+        function getData() {
+            var req = new XMLHttpRequest();
+            req.open("get", "https://localhost:44391/Home/Edit/" + id);
+            req.onload = function () {
+                var content = document.getElementById("ajaxContent");
+                content.innerHTML = this.responseText;
+            };
+            req.send();
+
+             @*WujiaMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: @ViewBag.xx, lng: @ViewBag.yy },
+                zoom: 16
+            });
+            var WujiaMarker = new google.maps.Marker({
+                position: { lat: @ViewBag.xx, lng: @ViewBag.yy },
+                map: WujiaMap
+            });
+            IDmapScript = document.getElementById("mapScript");
+            IDmapScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=WujiaMap');*@
+
+        }
     </script>
     <script id="mapScript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyh-WE2wDVU0lZD_I6nZYMbV9rYUaxk10&callback=initMap">
 

@@ -11,16 +11,22 @@ namespace Googlemap.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class theMap
     {
         public int Id { get; set; }
+        [Display(Name = "地址")]
         public string address { get; set; }
+        [Display(Name = "捐血站")]
         public string tele { get; set; }
+        [Display(Name = "營業時間")]
         public string time { get; set; }
         public Nullable<double> lat { get; set; }
         public Nullable<double> lng { get; set; }
+        [Display(Name = "期間限定")]
         public Nullable<System.DateTime> dateFrom { get; set; }
+        [Display(Name = "        ")]
         public Nullable<System.DateTime> dateEnd { get; set; }
     }
 }
